@@ -10,11 +10,11 @@ module.exports = app => {
 
     app.get("/scrape", function (req, res) {
         // First, we grab the body of the html with axios
-        axios.get("https://www.nba.com/").then(function (response) {
-            var $ = cheerio.load(response.data);
+        axios.get("https://www.nba.com/").then(response => {
+            let $ = cheerio.load(response.data);
 
             $("div.content_list--item_wrapper").children().each(function (i, element) {
-                var result = {}
+                let result = {}
                 result.title = $(this).children().text();
                 result.link = $(this).attr("href");
                 result.link = "www.nba.com" + result.link;
@@ -24,7 +24,7 @@ module.exports = app => {
                     .then(foundArticle => {
                         if (!foundArticle.length) {
                             db.Article.create(result)
-                                .then(function(result){
+                                .then(result =>{
                                     console.log(result)
                                     // res.render("scrape")
                                     res.json(result)

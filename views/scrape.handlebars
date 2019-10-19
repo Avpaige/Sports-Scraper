@@ -15,10 +15,10 @@
           </div>
           <div class="card-body" id="well-section">
              {{#each dbArticle}}
-                <div>
-                    {{title}}
-                    {{link}}
-                    <button>Save Article</button>
+                <div class="headline">
+                    <p>{{title}}</p>
+                     <a href={{link}} target="_blank">Jump to the full story.</a>
+                    <button id="save">Save Article</button>
                 </div>
              {{/each}}
            </div>
