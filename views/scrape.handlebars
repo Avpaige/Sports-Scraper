@@ -1,0 +1,29 @@
+  <div class="container">
+    <div class="jumbotron">
+      <h1>NBA Scraper</h1>
+      <h3>Here's the most recent news in the NBA!</h3>
+      <hr>
+     </div>
+    <div class="row">
+
+      
+      <div class="col-lg-12">
+
+        <div class="card">
+          <div class="card-header">
+            Latest Articles
+          </div>
+          <div class="card-body" id="well-section">
+             {{#each articles}}
+                <div>
+                    {{title}}
+                    {{link}}
+                    <button>Save Article</button>
+                </div>
+             {{/each}}
+           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
