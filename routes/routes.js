@@ -9,29 +9,40 @@ module.exports = app => {
     });
 
     app.get("/scrape", function (req, res) {
-        // First, we grab the body of the html with axios
         axios.get("https://www.nba.com/").then(response => {
-            let $ = cheerio.load(response.data);
+            var $ = cheerio.load(response.data);
 
             $("div.content_list--item_wrapper").children().each(function (i, element) {
-                let result = {}
+                            
+                var result = {}
                 result.title = $(this).children().text();
                 result.link = $(this).attr("href");
                 result.link = "www.nba.com" + result.link;
                 result.saved = false
 
-                db.Article.find({ link: result.title})
-                    .then(foundArticle => {
-                        if (!foundArticle.length) {
-                            db.Article.create(result)
-                                .then(result =>{
-                                    console.log(result)
-                                    // res.render("scrape")
-                                    res.json(result)
-                                })
-                                .catch(error => console.log(error));
-                        }
-                    })
+                db.Article.find({})
+                if (!foundArticle.length) {
+                 db.Article.create(result)
+                }
+                .then(result =>{
+                      console.log(result)
+                    res.render("scrape", {renderData : result})
+           
+                })
+                         
+            
+                    // db.Article.find({ link: result.title })
+                    // // res.send("hello")
+                    // .then(foundArticle => {
+                    //     if (!foundArticle.length) {
+                    //         db.Article.create(result)
+                    //             .then(result => {
+                    //                 console.log(result)
+                    //                 res.render("scrape", {renderData : result})
+                    //             })
+                    //             .catch(error => console.log(error));
+                    //     }
+                    // })
             })
         })
     })
